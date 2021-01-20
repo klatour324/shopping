@@ -61,4 +61,26 @@ class MarketTest < Minitest::Test
 
     assert_equal [vendor1, vendor3], market.vendors_that_sell('Peach')
   end
+
+  def test_sorted_item_list
+    market = Market.new("South Pearl Street Farmers Market")
+    vendor1 = Vendor.new("Rocky Mountain Fresh")
+    vendor2 = Vendor.new("Ba-Nom-a-Nom")
+    vendor3 = Vendor.new("Palisade Peach Shack")
+    item1 = Item.new({name: 'B', price: "$0.75"})
+    item2 = Item.new({name: 'C', price: "$0.50"})
+    item3 = Item.new({name: 'A', price: "$5.30"})
+    item4 = Item.new({name: 'D', price: "$4.25"})
+
+    market.add_vendor(vendor1)
+    market.add_vendor(vendor2)
+    market.add_vendor(vendor3)
+
+    vendor1.stock(item1, 35)
+    vendor1.stock(item2, 7)
+    vendor2.stock(item3, 25)
+    vendor3.stock(item1, 65)
+
+    assert_equal ['A', 'B', 'C'], market.sorted_item_list
+  end
 end
