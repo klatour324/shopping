@@ -28,4 +28,10 @@ class Vendor
       item.price * quantity
     end
   end
+
+  def sell?(food_item)
+    @inventory.keys.any? do |item|
+      item.name == food_item
+    end
+  end
 end
