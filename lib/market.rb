@@ -32,4 +32,18 @@ class Market
       item.name
     end.sort
   end
+
+  def total_inventory
+    total_inventory = {}
+
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        total_inventory[item] ||= {quantity: 0, vendors: []}
+
+        total_inventory[item][:quantity] += quantity
+        total_inventory[item][:vendors].push(vendor)
+      end
+    end
+    total_inventory
+  end
 end
