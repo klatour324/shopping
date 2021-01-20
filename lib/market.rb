@@ -22,4 +22,14 @@ class Market
       vendor.sell?(item_name)
     end
   end
+
+  def sorted_item_list
+    item_list = @vendors.map do |vendor|
+      vendor.inventory.keys
+    end.flatten.uniq
+
+    item_list.map do |item|
+      item.name
+    end.sort
+  end
 end
